@@ -1,0 +1,27 @@
+.crop-page {
+  text-align: center;
+  padding: 40px;
+}
+
+.crop-list {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.crop-button {
+  padding: 14px 26px;
+  border: none;
+  background: #4caf50;
+  color: white;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.crop-button:hover {
+  background: #388e3c;
+}
