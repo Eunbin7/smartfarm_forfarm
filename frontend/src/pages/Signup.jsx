@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "../css/Home.css"; // 기존 디자인 그대로 사용
+import "../css/Home.css";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
-import "../css/Signup.css"; // 기존 디자인 그대로 사용
+import "../css/Signup.css";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -10,11 +10,12 @@ export default function Signup() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const [userPw2, setUserPw2] = useState("");
-  const [userName, setUserName] = useState(""); // 지금은 DB에 안 넣지만, 나중 확장용
+  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
-    if (!userId.trim() || !userPw.trim() || !userPw2.trim() || !userName.trim()) {
+    // 입력값 체크
+    if (!userName.trim() || !userId.trim() || !userPw.trim() || !userPw2.trim()) {
       alert("모든 항목을 입력해주세요!");
       return;
     }
@@ -27,17 +28,16 @@ export default function Signup() {
     try {
       setLoading(true);
 
-      // 🔹 백엔드 회원가입 API 호출 (POST /signup)
       const res = await fetch("http://localhost:3001/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: userId,
-          userPw: userPw,
-          // userName은 지금 users 테이블에 없으니 백엔드에 안 보내도 되고,
-          // 보내더라도 백엔드에서 안 쓸 수 있음.
+          // 🔥 서버에서 req.body.userId, userPw, userName 으로 받음
+          userId,
+          userPw,
+          userName,
         }),
       });
 
@@ -47,7 +47,6 @@ export default function Signup() {
         alert("회원가입이 완료되었습니다!");
         navigate("/login");
       } else {
-        // 백엔드에서 실패 이유를 message로 내려줬다면 사용 가능
         alert(data.message || "회원가입에 실패했습니다. 다시 시도해주세요.");
       }
     } catch (error) {
@@ -60,10 +59,8 @@ export default function Signup() {
 
   return (
     <div className="home-container">
-      {/* 사이드바 유지 */}
       <Sidebar />
 
-      {/* 회원가입 메인 */}
       <main className="home-main">
         <div className="signup-card">
           <h2 className="signup-title">회원가입</h2>
