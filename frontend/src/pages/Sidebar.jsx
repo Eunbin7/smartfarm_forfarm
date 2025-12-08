@@ -70,7 +70,13 @@ export default function Sidebar() {
               등록된 센서 결과보기
             </button>
 
-            <button className="sidebar-btn">작물 관리하기</button>
+            <button
+  className="sidebar-btn"
+  onClick={() => navigate("/monitor")}
+>
+  작물 관리하기
+</button>
+
           </>
         )}
       </aside>

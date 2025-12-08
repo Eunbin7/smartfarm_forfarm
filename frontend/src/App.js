@@ -4,7 +4,7 @@ import InputSelect from "./pages/InputSelect";
 import Result from "./pages/Result";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-
+import PlantMonitor from "./pages/PlantMonitor";
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +14,7 @@ function App() {
         <Route path="/result" element={<Result />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/monitor" element={<PlantMonitor />} />
 
       </Routes>
     </BrowserRouter>
