@@ -7,6 +7,7 @@ export default function Sidebar() {
   const [showModal, setShowModal] = useState(false);
   const [sensorUrl, setSensorUrl] = useState("");
   const navigate = useNavigate();
+  const userName = localStorage.getItem("userName");
 
   const handleRegister = () => {
     if (!sensorUrl.trim()) {
@@ -22,23 +23,41 @@ export default function Sidebar() {
   return (
     <>
       {/* 🔥 상단 헤더바 */}
-      <header className="top-header">
-        <h2 
-  className="top-logo"
-  style={{ cursor: "pointer" }}
-  onClick={() => navigate("/")}
->
-  생육진단관리 해커톤
-</h2>
+<header className="top-header">
+  <h2 
+    className="top-logo"
+    style={{ cursor: "pointer" }}
+    onClick={() => navigate("/")}
+  >
+    생육진단관리 해커톤
+  </h2>
 
+  {userName ? (
+    <div className="header-right">
+      <span className="welcome-text">
+        {userName}님 환영합니다!
+      </span>
 
-        <button 
-          className="login-btn"
-          onClick={() => navigate("/login")}
-        >
-          로그인
-        </button>
-      </header>
+      <button 
+        className="logout-btn"
+        onClick={() => {
+          localStorage.removeItem("userName");
+          navigate("/");
+        }}
+      >
+        로그아웃
+      </button>
+    </div>
+  ) : (
+    <button 
+      className="login-btn"
+      onClick={() => navigate("/login")}
+    >
+      로그인
+    </button>
+  )}
+</header>
+
 
       {/* 🔥 왼쪽 사이드바 */}
       <aside className={isOpen ? "sidebar open" : "sidebar closed"}>

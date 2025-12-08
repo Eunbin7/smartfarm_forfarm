@@ -68,12 +68,16 @@ app.post("/login", (req, res) => {
       console.error("로그인 에러:", err);
       return res.status(500).json({ success: false, message: "DB 에러" });
     }
+    
 
-    if (results.length > 0) {
-      return res.json({ success: true });
-    } else {
-      return res.json({ success: false });
-    }
+if (results.length > 0) {
+  return res.json({
+    success: true,
+    userName: results[0].user_name   // ⭐ 추가됨
+  });
+} else {
+  return res.json({ success: false });
+}
   });
 });
 

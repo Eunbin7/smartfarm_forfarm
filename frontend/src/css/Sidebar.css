@@ -74,3 +74,30 @@
 .sidebar {
   margin-top: 60px;
 }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 50px;  /* 20px → 5px */
+}
+
+
+.welcome-text {
+  white-space: nowrap;   /* 줄바꿈 금지 → 잘림 방지 */
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.logout-btn {
+  padding: 6px 12px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logout-btn:hover {
+  background-color: #c0392b;
+}
