@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      <Sidebar />
+      <Sidebar onOpenSensorModal={setShowModal} />
 
       {/* 메인 화면 */}
       <main className="home-main">
