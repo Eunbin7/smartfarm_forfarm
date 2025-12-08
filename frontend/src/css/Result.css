@@ -1,0 +1,61 @@
+.result-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.result-main {
+  flex: 1;
+  padding: 40px;
+  background: #e7e3db;
+}
+
+.result-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.crop-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #f6f3ed;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.crop-detail-img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
+.crop-detail-name {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* 그래프 대시보드 레이아웃 */
+.result-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.chart-box,
+.gauge-box,
+.table-box {
+  background: #f6f3ed;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.chart-box h4,
+.gauge-box h4,
+.table-box h4 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}

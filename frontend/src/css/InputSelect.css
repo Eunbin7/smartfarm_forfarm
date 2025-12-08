@@ -1,0 +1,78 @@
+/* 전체 레이아웃 */
+.input-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 메인 화면 */
+.input-main {
+  flex: 1;
+  background: #e5e1d9;   /* 연한 베이지 배경 */
+  padding: 40px;
+}
+
+/* 제목 */
+.input-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+/* 📌 센서 리스트를 위한 GRID */
+.crop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* 가로 2개 */
+  gap: 24px;
+}
+
+/* 센서 카드 박스 */
+.crop-card {
+  background: #f6f4ef;
+  border-radius: 16px;
+  padding: 20px 24px;
+  position: relative;          /* 복사 버튼 배치용 */
+  transition: 0.2s;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+  cursor: pointer;
+}
+
+/* hover 효과 */
+.crop-card:hover {
+  transform: translateY(-4px);
+}
+
+/* 작물 이름 */
+.crop-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+/* URL 텍스트 */
+.sensor-url {
+  font-size: 14px;
+  color: #444;
+  text-align: left;
+  margin-bottom: 10px;
+  overflow-wrap: break-word;  /* 길면 자동 줄바꿈 */
+}
+
+/* 🔥 복사 버튼 스타일 (오렌지 태그처럼) */
+.copy-btn {
+  background: #f7923b;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+  transition: 0.2s;
+}
+
+.copy-btn:hover {
+  background: #ff9f40;
+}
