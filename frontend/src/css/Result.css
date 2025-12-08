@@ -8,7 +8,7 @@
 
 .result-main {
   flex: 1;
-  padding: 40px;
+   padding: 60px 40px 40px;   /* 🔥 전체적으로 아래로 내림 (40 → 80) */
   background: #e7e3db;
 }
 
@@ -16,13 +16,13 @@
    상단 실시간 결과 텍스트
 =========================== */
 .result-time {
-  font-size: 18px;
+  font-size: 35px;    /* 🔥 기존 18 → 22 */
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .result-time span {
-  font-size: 14px;
+  font-size: 16px;    /* 🔥 기존 14 → 16 */
   color: #555;
 }
 
@@ -112,7 +112,6 @@
   color: #444;
 }
 
-/* 상태 뱃지 색상 */
 .sensor-status {
   padding: 6px 14px;
   border-radius: 20px;
@@ -126,7 +125,7 @@
 .sensor-status.red { background: #e04949; }
 
 /* ===========================
-   반원 그래프 (게이지)
+   반원 게이지
 =========================== */
 .gauge-wrapper {
   position: relative;
@@ -233,6 +232,10 @@
   text-align: right;
   font-weight: 600;
 }
+
+/* ===========================
+   적정 범위 박스
+=========================== */
 .range-box {
   margin-top: 14px;
   padding: 12px 16px;

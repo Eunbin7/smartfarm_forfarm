@@ -21,6 +21,26 @@ export default function Sidebar() {
 
   return (
     <>
+      {/* 🔥 상단 헤더바 */}
+      <header className="top-header">
+        <h2 
+  className="top-logo"
+  style={{ cursor: "pointer" }}
+  onClick={() => navigate("/")}
+>
+  생육진단관리 해커톤
+</h2>
+
+
+        <button 
+          className="login-btn"
+          onClick={() => navigate("/login")}
+        >
+          로그인
+        </button>
+      </header>
+
+      {/* 🔥 왼쪽 사이드바 */}
       <aside className={isOpen ? "sidebar open" : "sidebar closed"}>
         {isOpen && (
           <>
@@ -34,7 +54,7 @@ export default function Sidebar() {
               <h1 className="logo">forfarm</h1>
             </div>
 
-            {/* ✔ 센서 등록하기 → 모달 열기 */}
+            {/* 센서 등록하기 */}
             <button
               className="sidebar-btn"
               onClick={() => setShowModal(true)}
@@ -42,12 +62,12 @@ export default function Sidebar() {
               센서 등록하기
             </button>
 
-            {/* ✔ 등록된 센서 가져오기 */}
+            {/* 등록된 센서 가져오기 */}
             <button
               className="sidebar-btn"
               onClick={() => navigate("/input")}
             >
-              등록된 센서 가져오기
+              등록된 센서 결과보기
             </button>
 
             <button className="sidebar-btn">작물 관리하기</button>
@@ -55,6 +75,7 @@ export default function Sidebar() {
         )}
       </aside>
 
+      {/* 사이드바 열고 닫기 버튼 */}
       <button
         className="toggle-btn"
         onClick={() => setIsOpen(!isOpen)}
@@ -62,7 +83,7 @@ export default function Sidebar() {
         {isOpen ? "◀" : "▶"}
       </button>
 
-      {/* 🔥 모든 페이지에서 사용할 수 있는 모달 */}
+      {/* 🔥 모달 */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-box">

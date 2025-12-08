@@ -8,7 +8,7 @@
 .input-main {
   flex: 1;
   background: #e5e1d9;   /* 연한 베이지 배경 */
-  padding: 40px;
+  padding: 80px 40px 40px;   /* 🔥 위로 공간 늘림 (기존 40px → 80px) */
 }
 
 /* 제목 */
@@ -30,7 +30,7 @@
   background: #f6f4ef;
   border-radius: 16px;
   padding: 20px 24px;
-  position: relative;          /* 복사 버튼 배치용 */
+  position: relative;
   transition: 0.2s;
   box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
   cursor: pointer;
@@ -55,10 +55,10 @@
   color: #444;
   text-align: left;
   margin-bottom: 10px;
-  overflow-wrap: break-word;  /* 길면 자동 줄바꿈 */
+  overflow-wrap: break-word;
 }
 
-/* 🔥 복사 버튼 스타일 (오렌지 태그처럼) */
+/* 🔥 복사 버튼 */
 .copy-btn {
   background: #f7923b;
   color: #fff;
@@ -76,6 +76,7 @@
 .copy-btn:hover {
   background: #ff9f40;
 }
+
 /* 🔥 로딩 오버레이 */
 .loading-overlay {
   position: fixed;

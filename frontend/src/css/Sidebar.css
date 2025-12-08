@@ -4,6 +4,7 @@
   width: 240px;
   padding: 24px 16px;
   transition: 0.3s ease;
+  
 }
 
 .sidebar.open { width: 240px; opacity: 1; }
@@ -30,4 +31,46 @@
   color: #fff;
   border-radius: 6px;
   cursor: pointer;
+}
+/* 🔥 상단 헤더 */
+.top-header {
+  width: 100%;
+  height: 60px;
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.top-logo {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #2b7a3d;
+}
+
+.login-btn {
+  background: #2b7a3d;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 40px;  /* 🔥 오른쪽 끝에서 40px 떨어지게 */
+}
+
+
+.login-btn:hover {
+  background: #256c36;
+}
+
+/* 🔽 헤더 때문에 화면 전체가 아래로 밀리지 않게 보정 */
+.sidebar {
+  margin-top: 60px;
 }

@@ -51,7 +51,7 @@ export default function Home() {
                 className="choice-btn input-btn"
                 onClick={() => navigate("/input")}
               >
-                등록된 센서 가져오기
+                등록된 센서 결과보기
               </button>
             </div>
 
