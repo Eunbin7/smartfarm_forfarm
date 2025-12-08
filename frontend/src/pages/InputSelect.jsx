@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import "../css/InputSelect.css";
 import { useNavigate } from "react-router-dom";
 
-export default function SensorList() {
+export default function SensorList() { // 파일 이름이 InputSelect여도 상관 없음
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);          // 측정 로딩
   const [showPopup, setShowPopup] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
 
-  // 📌 현재 날짜/시간 가져오는 함수
+  const [sensors, setSensors] = useState([]);             // 🔥 DB에서 가져온 센서 리스트
+  const [loadingSensors, setLoadingSensors] = useState(true); // 센서 목록 로딩 상태
+  const [selectedSensor, setSelectedSensor] = useState(null); // 🔥 팝업에서 보여줄 센서
+
+  // 📌 현재 날짜/시간
   const getCurrentDateTime = () => {
     const now = new Date();
     const yyyy = now.getFullYear();
@@ -23,42 +27,65 @@ export default function SensorList() {
     return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
   };
 
-  // 센서 실측 데이터 (추후 DB에서 가져올 예정)
-  const sensorData = {
-    온도: "26.4°C",
-    습도: "61%",
-    조도: "820 lux",
-    토양수분: "48%",
-  };
+  // 🔹 페이지 로드 시 DB에서 센서 목록 가져오기
+  useEffect(() => {
+    const fetchSensors = async () => {
+      try {
+        setLoadingSensors(true);
+        const res = await fetch("http://localhost:3001/sensors");
+        const data = await res.json();
+
+        if (data.success) {
+          // [{ sensor_name, user_id, crops_name, tmp, humidity, lux, soil_water }, ...]
+          setSensors(data.sensors);
+        } else {
+          alert(data.message || "센서 목록을 불러오지 못했습니다.");
+        }
+      } catch (err) {
+        console.error("센서 목록 가져오기 에러:", err);
+        alert("센서 목록을 불러오는 중 오류가 발생했습니다.");
+      } finally {
+        setLoadingSensors(false);
+      }
+    };
+
+    fetchSensors();
+  }, []);
 
   // 🔥 결과보기 버튼 클릭 → 로딩 → 팝업
-  const handleResultClick = () => {
+  const handleResultClick = (sensor) => {
+    setSelectedSensor(sensor);        // 어떤 센서인지 저장
     setLoading(true);
 
     setTimeout(() => {
-      setCurrentTime(getCurrentDateTime()); // 팝업 열리는 순간 시간 저장
+      setCurrentTime(getCurrentDateTime());
       setLoading(false);
       setShowPopup(true);
-    }, 3000);
+    }, 1000); // 1초 정도만 줄게. 원하면 3000으로
   };
 
-  // 🔥 팝업 안의 결과보기 → 로딩 → result 페이지 이동
+  // 🔥 팝업 안의 결과보기 → result 페이지 이동
   const goToFinalResult = () => {
     setShowPopup(false);
     setLoading(true);
 
+    // 필요하면 여기서 센서 정보 넘길 수도 있음
+    // navigate("/result", { state: { sensor: selectedSensor } });
+
     setTimeout(() => {
       navigate("/result");
-    }, 3000);
+    }, 1000);
   };
 
-  // 등록된 센서 리스트 (나중엔 DB에서 불러오는 값)
-  const sensors = [
-    { crop: "토마토", url: "sensor://tomato_1234" },
-    { crop: "오이", url: "sensor://cucumber_4553" },
-    { crop: "딸기", url: "sensor://strawberry_8282" },
-    { crop: "비정상 센서", url: "sensor://error_001" },
-  ];
+  // 선택된 센서의 실측 데이터 매핑
+  const sensorData = selectedSensor
+    ? {
+        온도: selectedSensor.tmp,
+        습도: selectedSensor.humidity,
+        조도: selectedSensor.lux,
+        토양수분: selectedSensor.soil_water,
+      }
+    : {};
 
   return (
     <div className="input-container">
@@ -67,24 +94,33 @@ export default function SensorList() {
       <main className="input-main">
         <h2 className="input-title">등록된 센서 가져오기</h2>
 
-        {/* 🔥 로딩 화면 */}
-        {loading && (
+        {/* 센서 목록 불러오는 중 */}
+        {loadingSensors && (
+          <div className="loading-overlay">
+            <div className="loading-box">센서 목록 불러오는 중...</div>
+          </div>
+        )}
+
+        {/* 측정 로딩 */}
+        {loading && !loadingSensors && (
           <div className="loading-overlay">
             <div className="loading-box">불러오는 중...</div>
           </div>
         )}
 
-        {/* 🔥 실시간 측정 팝업 */}
-        {showPopup && (
+        {/* 실시간 측정 팝업 */}
+        {showPopup && selectedSensor && (
           <div className="popup-overlay">
             <div className="popup-box">
-              
-              {/* 실시간 측정 시간 */}
               <p className="popup-time">
                 <strong>실시간 측정값</strong>
                 <br />
                 <span style={{ fontSize: "14px", color: "#777" }}>
                   {currentTime}
+                </span>
+                <br />
+                <span style={{ fontSize: "13px", color: "#999" }}>
+                  ({selectedSensor.crops_name} / {selectedSensor.sensor_name})
                 </span>
               </p>
 
@@ -97,30 +133,41 @@ export default function SensorList() {
                 ))}
               </ul>
 
-              {/* 버튼들 */}
               <button className="popup-btn" onClick={goToFinalResult}>
                 결과 보기
               </button>
 
-              <button className="popup-close" onClick={() => setShowPopup(false)}>
+              <button
+                className="popup-close"
+                onClick={() => setShowPopup(false)}
+              >
                 닫기
               </button>
             </div>
           </div>
         )}
 
-        {/* 🔥 센서 리스트 GRID */}
+        {/* 센서 리스트 GRID */}
         <div className="crop-grid">
           {sensors.map((sensor, idx) => (
             <div className="crop-card" key={idx}>
-              <p className="crop-name">{sensor.crop}</p>
-              <p className="sensor-url">{sensor.url}</p>
+              <p className="crop-name">{sensor.crops_name}</p>
+              <p className="sensor-url">{sensor.sensor_name}</p>
 
-              <button className="copy-btn" onClick={handleResultClick}>
+              <button
+                className="copy-btn"
+                onClick={() => handleResultClick(sensor)}
+              >
                 결과보기
               </button>
             </div>
           ))}
+
+          {!loadingSensors && sensors.length === 0 && (
+            <p style={{ marginTop: 20, color: "#777" }}>
+              등록된 센서가 없습니다.
+            </p>
+          )}
         </div>
       </main>
     </div>
