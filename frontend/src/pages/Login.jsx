@@ -35,8 +35,12 @@ export default function Login() {
 
       if (data.success) {
         alert("로그인 성공!");
-        localStorage.setItem("userName", data.userName);
-        navigate("/"); // 메인으로 이동
+
+        // ⭐ 로그인한 유저 정보 저장 (Result.jsx 등에서 사용)
+        localStorage.setItem("userId", data.userId);     // ← 추가
+        localStorage.setItem("userName", data.userName); // 원래 있던 것 + 유지
+
+        navigate("/"); // 메인으로 이동 (원하는 라우트로 바꿔도 됨: "/result" 같은 거)
       } else {
         alert("아이디 또는 비밀번호가 올바르지 않습니다.");
       }

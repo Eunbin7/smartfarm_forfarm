@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import "../css/Result.css";
 import { PieChart, Pie, Cell, Customized } from "recharts";
+import { useLocation } from "react-router-dom";
 
 export default function Result() {
   // ---- 최근 기록 ---- //
@@ -33,7 +34,27 @@ export default function Result() {
     },
   ];
 
-  const [currentData, setCurrentData] = useState(historyRecords[0]);
+  // 📌 라우터 데이터 가져오기
+  const location = useLocation();
+  const sensor = location.state?.sensor;
+  const date = location.state?.date;
+  const crop = location.state?.crop || "토마토"; // 기본값
+
+  // 📌 작물 이미지 매핑
+  const cropImageMap = {
+    "토마토": "tomato.jpg",
+    "오이": "oi.png",
+    "딸기": "straw.jpg",
+  };
+
+  const cropImage = cropImageMap[crop] || "tomato.jpg";
+
+  // 현재 데이터 설정
+  const [currentData, setCurrentData] = useState(
+    sensor
+      ? { date: date, sensor: sensor, score: 0 }
+      : historyRecords[0]
+  );
 
   // ⭐ 선택된 센서 항목
   const [selectedKey, setSelectedKey] = useState("온도");
@@ -46,18 +67,28 @@ export default function Result() {
     토양수분: { min: 25, max: 40 },
   };
 
+  const GAUGE_MAX = {
+    온도: 35,      // 0 ~ 35°C
+    습도: 100,     // 0 ~ 100%
+    조도: 1200,    // 0 ~ 1200 lux
+    토양수분: 100, // 0 ~ 100%
+  };
+
   // ⭐ 선택된 값
   const selectedValue = currentData.sensor[selectedKey];
   const { min, max } = ranges[selectedKey];
 
-  // ⭐ 정상범위 → 퍼센트 변환 함수
-  const calcPercent = (value) => {
-    if (value <= min) return 0;
-    if (value >= max) return 100;
-    return ((value - min) / (max - min)) * 100;
-  };
+  // ⭐ 정상범위 → 퍼센트 변환
+const calcPercent = (value, key) => {
+  const gaugeMax = GAUGE_MAX[key]; // 항목별 최대값 가져오기
+  if (value <= 0) return 0;
+  if (value >= gaugeMax) return 100;
+  return (value / gaugeMax) * 100;
+};
 
-  const percent = calcPercent(selectedValue);
+
+const percent = calcPercent(selectedValue, selectedKey);
+
 
   // ⭐ 상태 판별
   const getStatus = (key, value) => {
@@ -94,13 +125,13 @@ export default function Result() {
 
   const ACTIVE_COLOR = COLOR_MAP[status.color];
 
-  // ⭐ 반원그래프에 넣을 데이터
+  // ⭐ 반원그래프 데이터
   const gaugeData = [
     { value: percent },
     { value: 100 - percent },
   ];
 
-  // ⭐ 반원 그래프 기준선 렌더링
+  // ⭐ 기준선
   const renderIdealLine = ({ cx, cy, innerRadius, outerRadius }) => {
     const idealValue = (min + max) / 2;
     const idealPercent = calcPercent(idealValue);
@@ -150,7 +181,7 @@ export default function Result() {
   };
 
   const plantGuide = `
-📌 토마토 기본 재배 가이드
+📌 ${crop} 기본 재배 가이드
 - 적정 온도: 20~30°C
 - 적정 습도: 40~60%
 - 적정 토양수분: 25~40%
@@ -163,20 +194,22 @@ export default function Result() {
       <Sidebar />
 
       <main className="result-main">
-
         <p className="result-time">
           실시간 진단 결과 <span>({currentData.date})</span>
         </p>
 
+        {/* 🔥 작물 이미지 자동 변경 */}
         <div className="crop-header">
-          <img src="/images/tomato.jpg" className="crop-detail-img" alt="토마토 이미지" />
-
-          <h3 className="crop-detail-name">적홍 토마토</h3>
+          <img 
+            src={`/images/${cropImage}`}
+            className="crop-detail-img"
+            alt={crop}
+          />
+          <h3 className="crop-detail-name">{crop}</h3>
         </div>
 
         <div className="result-grid">
-
-          {/* ---- 센서 박스 ---- */}
+          {/* 센서 박스 */}
           <div className="sensor-box">
             <h4>센서 실측 데이터</h4>
 
@@ -201,7 +234,7 @@ export default function Result() {
             </ul>
           </div>
 
-          {/* ---- 반원그래프 ---- */}
+          {/* 반원 그래프 */}
           <div className="chart-box">
             <h4>{selectedKey} 변화 그래프</h4>
 
@@ -220,7 +253,6 @@ export default function Result() {
                   <Cell fill="#ddd" />
                 </Pie>
 
-                {/* 🔥 기준선 추가 */}
                 <Customized component={renderIdealLine} />
               </PieChart>
 
@@ -246,22 +278,21 @@ export default function Result() {
               </p>
             </div>
           </div>
-
         </div>
 
-        {/* ---- 보고서 ---- */}
+        {/* 보고서 */}
         <div className="report-box">
           <h4>📄 진단 결과 보고서</h4>
           <p className="report-text">{generateReport()}</p>
         </div>
 
-        {/* ---- 가이드 ---- */}
+        {/* 가이드 */}
         <div className="guide-box">
           <h4>🌱 작물 재배 가이드</h4>
           <pre className="guide-text">{plantGuide}</pre>
         </div>
 
-        {/* ---- 최근 기록 ---- */}
+        {/* 최근 기록 */}
         <div className="history-box">
           <h4>최근 진단 기록</h4>
 
@@ -281,8 +312,11 @@ export default function Result() {
                   style={{
                     width: `${record.score}%`,
                     background:
-                      record.score < 40 ? "red" :
-                      record.score < 60 ? "orange" : "green",
+                      record.score < 40
+                        ? "red"
+                        : record.score < 60
+                        ? "orange"
+                        : "green",
                   }}
                 ></div>
                 <span className="history-score">{record.score}%</span>
@@ -290,7 +324,6 @@ export default function Result() {
             ))}
           </div>
         </div>
-
       </main>
     </div>
   );

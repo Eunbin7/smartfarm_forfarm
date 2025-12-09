@@ -65,17 +65,22 @@ export default function SensorList() { // 파일 이름이 InputSelect여도 상
   };
 
   // 🔥 팝업 안의 결과보기 → result 페이지 이동
-  const goToFinalResult = () => {
-    setShowPopup(false);
-    setLoading(true);
+const goToFinalResult = () => {
+  setShowPopup(false);
+  setLoading(true);
 
-    // 필요하면 여기서 센서 정보 넘길 수도 있음
-    // navigate("/result", { state: { sensor: selectedSensor } });
+  setTimeout(() => {
+navigate("/result", {
+  state: {
+    sensor: sensorData,
+    date: currentTime,
+    crop: selectedSensor.crops_name
+  }
+});
 
-    setTimeout(() => {
-      navigate("/result");
-    }, 1000);
-  };
+  }, 1000);
+};
+
 
   // 선택된 센서의 실측 데이터 매핑
   const sensorData = selectedSensor

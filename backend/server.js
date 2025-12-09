@@ -12,11 +12,13 @@ app.use(express.json());
 
 // 🔹 MySQL 연결
 const db = mysql.createConnection({
-  host: "192.168.1.119",
-  user: "root",          // 네 MySQL 아이디
-  password: "1234",      // 네 MySQL 비밀번호
-  database: "forfarm",   // forfarm DB
+  host: "127.0.0.1",
+  port: 3307,
+  user: "forfarm",
+  password: "1234",
+  database: "forfarm",
 });
+
 
 // 연결 테스트
 db.connect((err) => {

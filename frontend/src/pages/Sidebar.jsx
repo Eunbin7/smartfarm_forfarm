@@ -19,7 +19,14 @@ export default function Sidebar() {
     setShowModal(false);
     setSensorUrl("");
   };
+const handleLogout = () => {
+    // ✅ 로그인 정보 전부 제거
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
 
+    alert("로그아웃 되었습니다.");
+    navigate("/login"); // 로그인 페이지로 이동
+  };
   return (
     <>
       {/* 🔥 상단 헤더바 */}
@@ -29,7 +36,7 @@ export default function Sidebar() {
     style={{ cursor: "pointer" }}
     onClick={() => navigate("/")}
   >
-    생육진단관리 해커톤
+    고흥캠퍼스 해커톤
   </h2>
 
   {userName ? (
