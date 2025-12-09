@@ -6,10 +6,16 @@ import { useNavigate } from "react-router-dom";
 export default function PlantMonitor() {
   const navigate = useNavigate();
 
-  // 🔥 개별 카드 로딩 상태
   const [loadingIndex, setLoadingIndex] = useState(null);
 
-  // 🔥 아직 백엔드 없으니까 임시 더미데이터
+  // 🔥 이미지 매핑 (SensorList와 동일)
+  const cropImageMap = {
+    "토마토": "/images/tomato.jpg",
+    "오이": "/images/oi.png",
+    "딸기": "/images/straw.jpg",
+  };
+
+  // 🔥 더미 데이터 (상추 제거)
   const allPlants = [
     {
       name: "토마토",
@@ -25,15 +31,9 @@ export default function PlantMonitor() {
       name: "오이",
       sensorUrl: "sensor://003",
       sensor: { 온도: 29, 습도: 19, 조도: 950, 토양수분: 40 }
-    },
-    {
-      name: "상추",
-      sensorUrl: "sensor://004",
-      sensor: { 온도: 25, 습도: 55, 조도: 600, 토양수분: 32 }
     }
   ];
 
-  // 🔥 상태 평가 함수 (Result 페이지와 동일 로직)
   const getStatus = (key, value) => {
     if (key === "토양수분") {
       if (value < 20) return "위험";
@@ -57,7 +57,6 @@ export default function PlantMonitor() {
     }
   };
 
-  // 🔥 주의·위험만 모아서 배열 생성
   const [alertPlants, setAlertPlants] = useState([]);
 
   useEffect(() => {
@@ -81,14 +80,13 @@ export default function PlantMonitor() {
     setAlertPlants(result);
   }, []);
 
-  // 🔥 상세보기 클릭 → 카드별 로딩 → 3초 후 result 이동
   const handleDetailClick = (index) => {
     setLoadingIndex(index);
 
     setTimeout(() => {
       setLoadingIndex(null);
       navigate("/result");
-    }, 3000);
+    }, 2000);
   };
 
   return (
@@ -97,9 +95,7 @@ export default function PlantMonitor() {
 
       <main className="monitor-main">
         <h1 className="monitor-title">🌱 작물 상태 모니터링</h1>
-        <p className="monitor-desc">
-          주의 또는 위험 상태에 있는 작물만 모아서 보여줍니다.
-        </p>
+        <p className="monitor-desc">주의 또는 위험 상태에 있는 작물만 모아서 보여줍니다.</p>
 
         {alertPlants.length === 0 ? (
           <p className="monitor-empty">모든 작물이 정상 상태입니다! 🌿</p>
@@ -107,27 +103,39 @@ export default function PlantMonitor() {
           <div className="plant-grid">
             {alertPlants.map((plant, idx) => (
               <div className="plant-card" key={idx}>
-                <div className="plant-header">
-                  <h2>{plant.name}</h2>
-                  <p className="sensor-url">{plant.sensorUrl}</p>
+                
+                {/* 🔥 이미지 추가 */}
+                <img
+                  className="plant-img"
+                  src={cropImageMap[plant.name] || "/images/default.png"}
+                  alt={plant.name}
+                />
+
+                <div className="plant-content">
+                  <div className="plant-header">
+                    <h2>{plant.name}</h2>
+                    <p className="sensor-url">{plant.sensorUrl}</p>
+                  </div>
+
+                  <ul className="alert-list">
+                    {plant.alerts.map((a, i) => (
+                      <li key={i} className={`alert-item ${a.status} ${a.key}`}>
+
+                        <strong>{a.key}</strong> : {a.value}
+                        <span className="badge">{a.status}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button
+                    className="detail-btn"
+                    disabled={loadingIndex === idx}
+                    onClick={() => handleDetailClick(idx)}
+                  >
+                    {loadingIndex === idx ? "로딩중..." : "상세보기 →"}
+                  </button>
                 </div>
 
-                <ul className="alert-list">
-                  {plant.alerts.map((a, i) => (
-                    <li key={i} className={`alert-item ${a.status}`}>
-                      <strong>{a.key}</strong> : {a.value}
-                      <span className="badge">{a.status}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  className="detail-btn"
-                  disabled={loadingIndex === idx}
-                  onClick={() => handleDetailClick(idx)}
-                >
-                  {loadingIndex === idx ? "로딩중..." : "상세보기 →"}
-                </button>
               </div>
             ))}
           </div>

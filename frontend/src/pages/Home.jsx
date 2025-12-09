@@ -26,7 +26,7 @@ export default function Home() {
       {/* 메인 화면 */}
       <main className="home-main">
         <div className="home-content">
-          <h2 className="home-title">스마트 생육 관리 시스템</h2>
+          <h2 className="home-title">스마트 생육 진단 및 모니터링</h2>
           <p className="home-desc">
             AI 기반 생육 진단, 작물 분석, 생육 데이터 시각화를 제공합니다.
           </p>
