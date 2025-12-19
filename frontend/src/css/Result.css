@@ -1,0 +1,267 @@
+/* ===========================
+   기본 레이아웃
+=========================== */
+.result-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.result-main {
+  flex: 1;
+   padding: 60px 40px 40px;   /* 🔥 전체적으로 아래로 내림 (40 → 80) */
+  background: #e7e3db;
+}
+
+/* ===========================
+   상단 실시간 결과 텍스트
+=========================== */
+.result-time {
+  font-size: 35px;    /* 🔥 기존 18 → 22 */
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.result-time span {
+  font-size: 16px;    /* 🔥 기존 14 → 16 */
+  color: #555;
+}
+
+/* ===========================
+   작물 헤더
+=========================== */
+.crop-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #f6f3ed;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.crop-detail-img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
+.crop-detail-name {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* ===========================
+   센서 데이터 + 그래프 레이아웃
+=========================== */
+.result-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.sensor-box,
+.chart-box {
+  background: #f6f3ed;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.sensor-box h4,
+.chart-box h4,
+.report-box h4,
+.guide-box h4,
+.history-box h4 {
+  font-size: 18px;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+/* ===========================
+   센서 데이터 리스트
+=========================== */
+.sensor-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sensor-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.08);
+  transition: 0.15s ease;
+  cursor: pointer;
+}
+
+.sensor-item:hover {
+  background: #f1f1f1;
+}
+
+.sensor-key {
+  font-weight: 600;
+}
+
+.sensor-value {
+  color: #444;
+}
+
+.sensor-status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+  color: white;
+}
+
+.sensor-status.green { background: #4CAF50; }
+.sensor-status.orange { background: #ffa928; }
+.sensor-status.red { background: #e04949; }
+
+/* ===========================
+   반원 게이지
+=========================== */
+.gauge-wrapper {
+  position: relative;
+  width: 260px;
+  height: 160px;
+  margin: 0 auto;
+}
+
+.gauge-center {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  text-align: center;
+}
+
+.gauge-center h2 {
+  font-size: 28px;
+  margin: 0;
+}
+
+.gauge-center p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+}
+
+/* ===========================
+   📄 진단 결과 보고서
+=========================== */
+.report-box {
+  background: #f6f3ed;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 30px;
+}
+
+.report-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+  white-space: pre-line;
+}
+
+/* ===========================
+   🌱 작물 재배 가이드
+=========================== */
+.guide-box {
+  background: #f6f3ed;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.guide-text {
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-line;
+  color: #333;
+}
+
+/* ===========================
+   최근 기록 박스
+=========================== */
+.history-box {
+  background: #f6f3ed;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 30px;
+}
+
+.history-list {
+  margin-top: 16px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 6px 0;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.history-item:hover {
+  opacity: 0.8;
+}
+
+.history-date {
+  width: 150px;
+  font-size: 13px;
+  color: #555;
+}
+
+.history-bar {
+  height: 12px;
+  border-radius: 6px;
+  flex-grow: 1;
+}
+
+.history-score {
+  width: 40px;
+  text-align: right;
+  font-weight: 600;
+}
+
+/* ===========================
+   적정 범위 박스
+=========================== */
+.range-box {
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+.range-box strong {
+  font-weight: 700;
+}
+
+.range-status {
+  margin-top: 4px;
+  font-weight: 700;
+}
+
+.range-status.green {
+  color: #4caf50;
+}
+
+.range-status.orange {
+  color: #ff9800;
+}
+
+.range-status.red {
+  color: #d32f2f;
+}

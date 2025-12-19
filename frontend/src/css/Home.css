@@ -1,0 +1,257 @@
+.home-container {
+  display: flex;
+  min-height: 100vh;
+  background: #e5e1d9;
+  position: relative;
+}
+/* -------------------- 사이드바 -------------------- */
+.sidebar {
+  background: #000;
+  color: #fff;
+  padding: 24px 16px;
+  width: 240px;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+}
+
+/* 펼침 */
+.sidebar.open {
+  width: 240px;
+  opacity: 1;
+  min-width: 200px;
+}
+
+/* 완전 접힘 */
+.sidebar.closed {
+  width: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+/* 로고 */
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  white-space: nowrap;
+}
+/* 로고 전체 박스 */
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;       /* 이미지와 글자 간격 */
+  margin-bottom: 30px;
+  flex-shrink: 0;
+}
+
+/* 로고 이미지 크기 → 글씨 크기와 동일하게 맞춤 */
+.logo-img {
+  width: 50px;     /* 글씨 크기(28px)와 똑같이 설정 */
+  height: 50px;
+  object-fit: contain;
+}
+
+
+/* 메뉴 버튼 */
+.sidebar-btn {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  /* 🔥 버튼 크기 동일하게 만드는 규칙 */
+  width: 100%;          /* 사이드바 너비에 자동 맞춤 */
+  display: block;       /* 블록 형태로 통일 */
+  text-align: center;   /* 텍스트 가운데 */
+}
+
+/* -------------------- 토글 버튼 -------------------- */
+.toggle-btn {
+  position: absolute;
+  left: 280px; /* 🔥 사이드바 확장 크기에 맞게 수정 */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 14px 18px;    /* 🔥 더 큰 버튼 */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: left 0.3s ease;
+}
+
+.sidebar.closed + .toggle-btn {
+  left: 0;
+}
+
+/* -------------------- 메인 화면 -------------------- */
+.home-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-content {
+  text-align: center;
+}
+
+.home-title {
+  font-size: 36px;   /* 🔥 제목 크게 */
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.home-desc {
+  font-size: 18px;   /* 🔥 설명 텍스트 크게 */
+  color: #333;
+}
+
+/* -------------------- 선택 카드 -------------------- */
+.choice-row {
+  display: flex;
+  justify-content: center;
+  gap: 50px;        /* 🔥 카드 간격 확대 */
+  margin-top: 50px;
+}
+
+.choice-card {
+  width: 300px;     /* 🔥 카드 크기 증가 */
+  background: #fff;
+  border-radius: 16px;
+  padding: 26px;    /* 🔥 내부 패딩 증가 */
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transition: 0.2s ease;
+}
+
+.choice-card:hover {
+  transform: translateY(-6px);
+}
+
+/* 이미지 확대 */
+.choice-img {
+  width: 100%;
+  height: 220px;      /* 🔥 이미지 세로 크기 증가 */
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+/* 버튼 확대 */
+.choice-btn {
+  width: 100%;
+  padding: 18px 0;    /* 🔥 버튼 높이 증가 */
+  font-size: 20px;    /* 🔥 버튼 텍스트 확대 */
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+/* 센서 버튼 */
+.sensor-btn {
+  background: #424242;
+  color: #fff;
+}
+.sensor-btn:hover {
+  background: #616161;
+}
+
+/* 직접 입력 버튼 */
+.input-btn {
+  background: #1b5e20;
+  color: #fff;
+}
+.input-btn:hover {
+  background: #2e7d32;
+}
+
+/* -------------------- 모달 -------------------- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55); /* 🔥 약간 더 어둡게 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-box {
+  width: 500px;          /* 🔥 모달 박스 확장 */
+  background: #fff;
+  padding: 40px;         /* 🔥 여백 증가 */
+  border-radius: 16px;
+  position: relative;
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  border: none;
+  background: transparent;
+  font-size: 26px;     /* 🔥 크기 증가 */
+  cursor: pointer;
+}
+
+.modal-title {
+  font-size: 26px;     /* 🔥 큰 제목 */
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.modal-desc {
+  font-size: 17px;     /* 🔥 글씨 크기 */
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+  margin-bottom: 24px;
+  box-sizing: border-box;   /* ⭐ 전체 폭을 padding + border 포함하여 계산 → 치우침 제거 */
+}
+
+
+.modal-submit {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #1b5e20;
+  color: white;
+  font-size: 18px;      /* 🔥 버튼 크게 */
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.modal-submit:hover {
+  background: #2e7d32;
+}
+
+.modal-help {
+  font-size: 15px;      /* 🔥 설명문도 확대 */
+  color: #666;
+  line-height: 1.5;
+}

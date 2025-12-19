@@ -1,0 +1,153 @@
+/* 전체 레이아웃 */
+.monitor-container {
+  display: flex;
+  min-height: 100vh;
+  background: #e5e1d9; /* SensorList와 동일한 배경 */
+}
+
+/* 메인 영역 */
+.monitor-main {
+  flex: 1;
+  padding: 80px 40px 40px;
+}
+
+/* 제목 */
+.monitor-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #2f3e46;
+}
+
+.monitor-desc {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* 빈 상태 */
+.monitor-empty {
+  margin-top: 40px;
+  font-size: 18px;
+  color: #444;
+  font-weight: 600;
+}
+
+/* 🔥 SensorList와 동일한 GRID */
+.plant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 28px;
+}
+
+/* 🔥 카드 (SensorList sensor-card 그대로 적용) */
+.plant-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: 0.25s;
+}
+
+.plant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* 🔥 이미지 (SensorList sensor-img 동일) */
+.plant-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+/* 오른쪽 내용 */
+.plant-content {
+  flex: 1;
+}
+
+/* 제목 영역 */
+.plant-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sensor-url {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* 🔥 경고 리스트 (SensorList 스타일에 맞춰 미세 조정) */
+.alert-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 16px;
+}
+
+.alert-item {
+  background: #f9f9f9;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 6px solid transparent;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 상태별 색상 */
+.alert-item.위험 {
+  border-color: #e53935;
+  border-left-width: 20px;
+}
+
+.alert-item.주의 {
+  border-color: #ff9800;
+}
+
+/* 배지 */
+.badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.alert-item.위험 .badge {
+  background: #e53935;
+}
+
+.alert-item.주의 .badge {
+  background: #ff9800;
+}
+
+/* 🔥 버튼 (SensorList sensor-btn 스타일과 동일 색감) */
+.detail-btn {
+  background: #ff922e;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+  width: 100%;
+  text-align: center;
+}
+
+.detail-btn:hover {
+  background: #ffad55;
+}
+
+.detail-btn:disabled {
+  background: #ccc;
+  cursor: default;
+}

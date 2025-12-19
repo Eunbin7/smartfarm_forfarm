@@ -1,0 +1,189 @@
+/* 전체 레이아웃 */
+.input-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 메인 화면 */
+.input-main {
+  flex: 1;
+  background: #e5e1d9; 
+  padding: 80px 40px 40px;
+}
+
+/* 제목 */
+.input-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* 📌 새로운 센서 카드 GRID */
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 28px;
+  margin-top: 10px;
+}
+
+/* 📌 센서 카드 */
+.sensor-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.sensor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* 작물 이미지 */
+.sensor-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+/* 센서 정보 */
+.sensor-info {
+  flex: 1;
+}
+
+.sensor-info h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sensor-id {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* 센서 값 요약줄 */
+.sensor-summary {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+  color: #444;
+  font-size: 14px;
+}
+
+/* 버튼 */
+.sensor-btn {
+  background: #ff922e;
+  color: #fff;
+  padding: １０px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.sensor-btn:hover {
+  background: #ffad55;
+}
+
+/* --------------------------- */
+/* 로딩 오버레이 */
+/* --------------------------- */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.loading-box {
+  background: #ffffff;
+  padding: 20px 40px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* --------------------------- */
+/* 팝업 */
+/* --------------------------- */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-box {
+  background: #fff;
+  width: 380px;
+  padding: 28px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.popup-time {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.popup-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.popup-list li {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* 팝업 버튼 */
+.popup-btn {
+  width: 100%;
+  padding: 12px;
+  background: #1b5e20;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.popup-btn:hover {
+  background: #2e7d32;
+}
+
+.popup-close {
+  background: #ccc;
+  color: black;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.popup-close:hover {
+  background: #b5b5b5;
+}
